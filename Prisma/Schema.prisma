@@ -1,0 +1,11 @@
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model ApiKeys {
+    id  Int    @id
+    key String @unique @map("api_key") @db.VarChar(2048)
+
+    @@map("api_keys")
+}
