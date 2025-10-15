@@ -1,11 +1,30 @@
+generator schema {
+    provider = "prisma-client"
+    output   = "E:/s2e/src/Prisma"
+}
+
 datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")
 }
 
 model ApiKeys {
-    id  Int    @id
-    key String @unique @map("api_key") @db.VarChar(2048)
+    id          Int    @id @default(autoincrement())
+    name        String
+    key         String @unique @map("api_key") @db.VarChar(2048)
+    permissions String @db.VarChar(1024)
 
     @@map("api_keys")
+}
+
+model User {
+    id        Int     @id @default(autoincrement())
+    name      String  @db.VarChar(32)
+    username  String  @db.VarChar(32)
+    email     String  @db.VarChar(64)
+    telephone String  @db.VarChar(64)
+    password  String  @db.VarChar(128)
+    verified  Boolean @db.Bit(1)
+
+    @@map("users")
 }
